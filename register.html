@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | ƬayyarΩne Sneakers</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("https://images.unsplash.com/photo-1600180758890-6be5c1e7c3e8?auto=format&fit=crop&w=1950&q=80") center/cover no-repeat;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+
+    .form-container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 40px 30px;
+      width: 350px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.5);
+    }
+
+    .brand {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: orange;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: white;
+      border-bottom: 2px solid orange;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: orange;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      color: black;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: darkorange;
+    }
+
+    a {
+      color: orange;
+      text-decoration: none;
+    }
+
+    p {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="form-container">
+    <div class="brand">ƬayyarΩne Sneakers</div>
+    <h2>Create Account</h2>
+    <input type="text" id="name" placeholder="Full Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="tel" id="phone" placeholder="Phone Number" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="registerUser()">Register</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    function registerUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!name || !email || !phone || !password) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+      if (existingUsers.find(u => u.email === email)) {
+        alert("Account already exists. Please login.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      existingUsers.push({ name, email, phone, password });
+      localStorage.setItem('users', JSON.stringify(existingUsers));
+      alert("Registration successful! You can now log in.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

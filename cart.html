@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | ƬayyarΩne §neakérs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+    .cart-item {
+      background: rgba(255,255,255,0.1);
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    .cart-item img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .remove-btn {
+      background: red;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  <div id="cartItems"></div>
+  <h2 id="total"></h2>
+  <button onclick="clearCart()" style="background:orange; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Clear Cart</button>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const container = document.getElementById('cartItems');
+    let total = 0;
+
+    function renderCart() {
+      container.innerHTML = '';
+      total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        container.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>₹${item.price}</p>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>`;
+      });
+      document.getElementById('total').textContent = "Total: ₹" + total;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

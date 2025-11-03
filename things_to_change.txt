@@ -1,0 +1,8 @@
+1.add arrow buttons to manually move to the next ranssioon on the home page.
+2.add a 5sec delay for automatic transition.
+3.add home , about, add to cart buttons.
+4.add add to cart button.
+5.addline the footer details. done.
+6.add a back button on login/register to go back to the home page.
+7.also the login when opened in home page it should open there only.
+8.use drop down button. like howering a button and the drop down shows up.
